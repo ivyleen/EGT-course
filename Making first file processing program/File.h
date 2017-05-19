@@ -19,7 +19,7 @@ enum Choice {
 class File {
 private:
 	static Choice choice;
-	ofstream file;
+	static ofstream file;
 public:
 	static void makeChoice() ;
 
