@@ -70,7 +70,7 @@ int main() {
 	}
 
 	cout << endl;
-
+	cout << "Numbers" << "\t" << "Occurences" << endl;
 	for (it = counters.begin(); it!=counters.end(); it++){
 		cout << it->first << "\t" << it->second << endl;
 	}
