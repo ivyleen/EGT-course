@@ -20,16 +20,16 @@ class File {
 private:
 	static Choice choice;
 	static ofstream file;
+
 public:
 	static void makeChoice() ;
 
 private:
-
-	static void ifOpenFile() ;
+	static void ifOpenFile();
 	static void createTextFile();
-	static void readFromFile() ;
-	static void printInFile() ;
-	static void cOut() ;
+	static void readFromFile();
+	static void printInFile();
+	static void cOut();
 	static void updateRecord();
 	static void newRecond();
 	static void deleteRecord();
