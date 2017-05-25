@@ -25,6 +25,7 @@ public:
 	void print();
 	const Book& cheapest() const;
 	const Book& theMostExpenesive() const;
+	void printInFile(double) const;
 
 	// setters & getters
 	const vector<Book*>& getShelf() const;

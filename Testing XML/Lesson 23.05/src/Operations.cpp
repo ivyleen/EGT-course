@@ -80,3 +80,22 @@ void Operations::print() {
 		cout << endl;
 	}
 }
+
+void Operations::printInFile(double price) const {
+	fstream mFile("makingFileByPrice.txt", ios::app);
+
+	if (!mFile) {
+		cerr << "File could not be opened." << endl;
+		exit(1);
+	}
+
+	for (unsigned int i = 0; i < shelf.size(); i++) {
+		if (shelf[i]->getPrice() == price) {
+			mFile << left << setw(20)
+					<< shelf[i]->getTitle() << setw(20)
+					<< shelf[i]->getAuthor() << setw(20)
+					<< shelf[i]->getYear()<< setw(20)
+					<< shelf[i]->getPrice() << endl;
+		}
+	}
+}
