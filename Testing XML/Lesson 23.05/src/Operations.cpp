@@ -84,7 +84,7 @@ void Operations::print() {
 }
 
 void Operations::printInFile(double price) const {
-	fstream mFile("makingFileByPrice.txt", ios::app);
+	fstream mFile("makingFileByPrice.txt", ios::app | ios::in);
 
 	if (!mFile) {
 		cerr << "File could not be opened." << endl;
