@@ -7,8 +7,6 @@
 
 #include "Operations.h"
 
-bool Operations::isItCalled = true;
-
 Operations::Operations() {
 	// TODO Auto-generated constructor stub
 
@@ -85,16 +83,19 @@ void Operations::print() {
 
 void Operations::printInFile(double price) const {
 	fstream mFile("makingFileByPrice.txt", ios::app | ios::in);
+	ifstream readFile("makingFileByPrice.txt", ios::in);
 
 	if (!mFile) {
 		cerr << "File could not be opened." << endl;
 		exit(1);
 	}
 
-	if(isItCalled){
-		mFile << left << setw(20) << "Title" << setw(20) <<
-				"Author" << setw(20) << "Year" << setw(20) <<
-				"Price" << endl;
+	string title;
+	readFile >> title;
+	if (!(title.compare("Title") == 0)) {
+		mFile << left << setw(20) << "Title" << setw(20)
+				<< "Author" << setw(20) << "Year"
+				<< setw(20) << "Price" << endl;
 	}
 
 	for (unsigned int i = 0; i < shelf.size(); i++) {
@@ -106,6 +107,6 @@ void Operations::printInFile(double price) const {
 					<< shelf[i]->getPrice() << endl;
 		}
 	}
-	isItCalled = false;
 	mFile.close();
+	readFile.close();
 }

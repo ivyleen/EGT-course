@@ -1,12 +1,22 @@
-Title               Author              Price               Year
-Harry Potter        J K. Rowling        2005                29.990000
-Title               Author              Price               Year
-Learning XML        Erik T. Ray         2003                39.950000
-Title               Author              Price               Year
-Harry Potter        J K. Rowling        2005                29.990000
-Title               Author              Price               Year
-Learning XML        Erik T. Ray         2003                39.950000
-Title               Author              Price               Year
-Harry Potter        J K. Rowling        2005                29.990000
-Title               Author              Price               Year
-Learning XML        Erik T. Ray         2003                39.950000
+Title               Author              Year                Price               
+Harry Potter        J K. Rowling        2005                29.99               
+Stories             J K. Rowling        2005                29.99               
+Learning XML        Erik T. Ray         2003                39.95               
+Harry Potter        J K. Rowling        2005                29.99               
+Stories             J K. Rowling        2005                29.99               
+Learning XML        Erik T. Ray         2003                39.95               
+Harry Potter        J K. Rowling        2005                29.99               
+Stories             J K. Rowling        2005                29.99               
+Learning XML        Erik T. Ray         2003                39.95               
+Harry Potter        J K. Rowling        2005                29.99               
+Stories             J K. Rowling        2005                29.99               
+Learning XML        Erik T. Ray         2003                39.95               
+Harry Potter        J K. Rowling        2005                29.99               
+Stories             J K. Rowling        2005                29.99               
+Learning XML        Erik T. Ray         2003                39.95               
+Harry Potter        J K. Rowling        2005                29.99               
+Stories             J K. Rowling        2005                29.99               
+Learning XML        Erik T. Ray         2003                39.95               
+Harry Potter        J K. Rowling        2005                29.99               
+Stories             J K. Rowling        2005                29.99               
+Learning XML        Erik T. Ray         2003                39.95               
