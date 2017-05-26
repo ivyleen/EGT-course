@@ -7,6 +7,8 @@
 
 #include "Operations.h"
 
+bool Operations::isItCalled = true;
+
 Operations::Operations() {
 	// TODO Auto-generated constructor stub
 
@@ -89,6 +91,12 @@ void Operations::printInFile(double price) const {
 		exit(1);
 	}
 
+	if(isItCalled){
+		mFile << left << setw(20) << "Title" << setw(20) <<
+				"Author" << setw(20) << "Year" << setw(20) <<
+				"Price" << endl;
+	}
+
 	for (unsigned int i = 0; i < shelf.size(); i++) {
 		if (shelf[i]->getPrice() == price) {
 			mFile << left << setw(20)
@@ -98,4 +106,6 @@ void Operations::printInFile(double price) const {
 					<< shelf[i]->getPrice() << endl;
 		}
 	}
+	isItCalled = false;
+	mFile.close();
 }

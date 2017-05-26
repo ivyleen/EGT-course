@@ -16,6 +16,7 @@ using namespace std;
 class Operations {
 private:
 	vector<Book*> shelf;
+	static bool isItCalled;
 public:
 	Operations();
 	virtual ~Operations();
