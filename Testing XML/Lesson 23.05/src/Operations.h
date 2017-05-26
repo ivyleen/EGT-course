@@ -9,6 +9,9 @@
 #define OPERATIONS_H_
 #include <vector>
 #include <iostream>
+#include  <fstream>
+#include  <cstdlib>
+#include <iomanip>
 #include "pugixml.hpp"
 #include "Book.h"
 using namespace std;
@@ -31,5 +34,4 @@ public:
 	const vector<Book*>& getShelf() const;
 	void setShelf(const vector<Book*>& shelf);
 };
-
 #endif /* OPERATIONS_H_ */
