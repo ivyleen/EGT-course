@@ -24,46 +24,46 @@ ComplexNumbers::ComplexNumbers(double real, double img) {
 ComplexNumbers::~ComplexNumbers() {
 }
 
-ComplexNumbers& ComplexNumbers::operator +(ComplexNumbers& newR) {
+ComplexNumbers ComplexNumbers::operator +(ComplexNumbers& newR) {
 
 	double newReal = this->real + newR.real;
 	double newImg = this->img + newR.img;
 
-	ComplexNumbers *added = new ComplexNumbers(newReal, newImg);
+	ComplexNumbers added = ComplexNumbers(newReal, newImg);
 
-	return *added;
+	return added;
 }
 
-ComplexNumbers& ComplexNumbers::operator -(ComplexNumbers& newR) {
+ComplexNumbers ComplexNumbers::operator -(ComplexNumbers& newR) {
 
 	double newReal = this->real - newR.real;
 	double newImg = this->img - newR.img;
 
-	ComplexNumbers *added = new ComplexNumbers(newReal, newImg);
+	ComplexNumbers added = ComplexNumbers(newReal, newImg);
 
-	return *added;
+	return added;
 }
 
-ComplexNumbers& ComplexNumbers::operator *(ComplexNumbers& newR) {
+ComplexNumbers ComplexNumbers::operator *(ComplexNumbers& newR) {
 
 	double newReal = (this->real * newR.real) - (this->img * newR.img);
 	double newImg = (this->real * newR.img) + (this->img * newR.real);
 
-	ComplexNumbers *added = new ComplexNumbers(newReal, newImg);
+	ComplexNumbers added = ComplexNumbers(newReal, newImg);
 
-	return *added;
+	return added;
 }
 
-ComplexNumbers& ComplexNumbers::operator /(ComplexNumbers& newR) {
+ComplexNumbers ComplexNumbers::operator /(ComplexNumbers& newR) {
 
 	double newReal = ((this->real * newR.real) + (this->img * newR.img))
 			/ pow(newR.real, 2) + pow(newR.img, 2);
 	double newImg = ((this->img * newR.real) - (this->real * newR.img))
 		/ pow(newR.real, 2) + pow(newR.img, 2);
 
-	ComplexNumbers *added = new ComplexNumbers(newReal, newImg);
+	ComplexNumbers added = ComplexNumbers(newReal, newImg);
 
-	return *added;
+	return added;
 }
 
 bool ComplexNumbers::operator ==(ComplexNumbers& newR) {
