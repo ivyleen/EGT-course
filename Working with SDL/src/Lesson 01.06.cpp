@@ -31,6 +31,8 @@ SDL_Surface *surface = NULL;
 SDL_Surface *pictures[k_total];
 SDL_Surface *current = NULL;
 SDL_Surface *strech = NULL;
+SDL_Surface* optimizedSurface = NULL;
+SDL_Surface* loadedSurface = NULL;
 
 bool init();
 bool loadMedia();
@@ -38,7 +40,6 @@ void close();
 SDL_Surface* loadSurface(std::string path);
 
 int main(int argc, char *argv[]) {
-
 	if (!init()) {
 		cout << "Failed initialization." << endl;
 	} else {
@@ -47,42 +48,68 @@ int main(int argc, char *argv[]) {
 		} else {
 
 			bool quit = false;
+			current = pictures[k_default];
 
 			SDL_Event e;
 
 			while (!quit) {
 				while (SDL_PollEvent(&e) != 0) {
-					current = pictures[k_default];
-
 					if (e.type == SDL_QUIT) {
 						quit = true;
 					} else {
 						switch (e.key.keysym.sym) {
 						case SDLK_UP:
 							current = pictures[k_up];
+							SDL_BlitSurface(current, NULL,
+									surface,
+									NULL);
 							break;
+
 						case SDLK_DOWN:
 							current = pictures[k_down];
+							SDL_BlitSurface(current, NULL,
+									surface,
+									NULL);
 							break;
+
 						case SDLK_LEFT:
 							current = pictures[k_left];
+							SDL_BlitSurface(current, NULL,
+									surface,
+									NULL);
 							break;
+
 						case SDLK_RIGHT:
 							current = pictures[k_right];
+							SDL_BlitSurface(current, NULL,
+									surface,
+									NULL);
 							break;
+
+						case SDLK_s:
+							current = pictures[k_strech];
+							SDL_Rect stretchRect;
+							stretchRect.x = 0;
+							stretchRect.y = 0;
+							stretchRect.w = 300;
+							stretchRect.h = 400;
+							SDL_BlitScaled(
+									pictures[k_strech],
+									NULL, surface,
+									&stretchRect);
+							break;
+
 						default:
 							current = pictures[k_default];
+							SDL_BlitSurface(current, NULL,
+									surface,
+									NULL);
 							break;
 						}
 					}
 				}
-
 				// blit - apply
-				SDL_BlitSurface(current, NULL, surface,
-				NULL);
-
 				SDL_UpdateWindowSurface(window);
-
 			}
 		}
 	}
@@ -158,6 +185,11 @@ bool loadMedia() {
 		success = false;
 	}
 	pictures[k_strech] = loadSurface("stretch.bmp");
+	if (pictures[k_strech] == NULL) {
+		cout << "The picture can't be loaded. Error: "
+				<< SDL_GetError() << endl;
+		success = false;
+	}
 
 	return success;
 }
@@ -165,6 +197,12 @@ bool loadMedia() {
 void close() {
 	SDL_FreeSurface(surface);
 	surface = NULL;
+
+	SDL_FreeSurface(loadedSurface);
+	loadedSurface = NULL;
+
+	SDL_FreeSurface(optimizedSurface);
+	optimizedSurface = NULL;
 
 	SDL_DestroyWindow(window);
 	window = NULL;
@@ -178,8 +216,7 @@ void close() {
 }
 
 SDL_Surface* loadSurface(std::string path) {
-	SDL_Surface* optimizedSurface = NULL;
-	SDL_Surface* loadedSurface = SDL_LoadBMP(path.c_str());
+	loadedSurface = SDL_LoadBMP(path.c_str());
 	if (loadedSurface == NULL) {
 		cout
 				<< "The stretched picture can't be loaded. Error: "
@@ -187,15 +224,14 @@ SDL_Surface* loadSurface(std::string path) {
 
 	} else {
 		optimizedSurface = SDL_ConvertSurface(loadedSurface,
-				surface->format, NULL);
+				surface->format, 0);
 		if (optimizedSurface == NULL) {
 			cout
 					<< "The stretched picture can't be loaded. Error: "
 					<< path.c_str() << SDL_GetError()
 					<< endl;
 		}
-
-		//Get rid of old loaded surface
-		SDL_FreeSurface(loadedSurface);
-		return loadedSurface;
 	}
+	return loadedSurface;
+
+}
