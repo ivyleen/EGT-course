@@ -13,8 +13,8 @@
 #include <iostream>
 using namespace std;
 
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
+const int SCREEN_WIDTH = 800;
+const int SCREEN_HEIGHT = 750;
 
 enum KeyPress {
 	k_default,
@@ -23,12 +23,13 @@ enum KeyPress {
 	k_left,
 	k_right,
 	k_strech,
-	k_total
+	k_image,
+	k_end
 };
 
 SDL_Window *window = NULL;
 SDL_Surface *surface = NULL;
-SDL_Surface *pictures[k_total];
+SDL_Surface *pictures[k_end];
 SDL_Surface *current = NULL;
 SDL_Surface *strech = NULL;
 SDL_Surface* optimizedSurface = NULL;
@@ -53,63 +54,104 @@ int main(int argc, char *argv[]) {
 			SDL_Event e;
 
 			while (!quit) {
+				int i = 0;
+				cout << quit << " ¹ " << i << endl;
+				i++;
 				while (SDL_PollEvent(&e) != 0) {
 					if (e.type == SDL_QUIT) {
+						cout << "Q" << endl;
 						quit = true;
 					} else {
+						SDL_Rect stretchRect;
+						stretchRect.x = 0;
+						stretchRect.y = 0;
+						stretchRect.w = 800;
+						stretchRect.h = 750;
+
 						switch (e.key.keysym.sym) {
 						case SDLK_UP:
 							current = pictures[k_up];
-							SDL_BlitSurface(current, NULL,
-									surface,
-									NULL);
+							stretchRect.w = 640;
+							stretchRect.h = 480;
+							stretchRect.x = (SCREEN_WIDTH
+									- stretchRect.w) / 2;
+							stretchRect.y = 0;
+							SDL_BlitScaled(pictures[k_up],
+							NULL, surface, &stretchRect);
 							break;
 
 						case SDLK_DOWN:
 							current = pictures[k_down];
-							SDL_BlitSurface(current, NULL,
-									surface,
-									NULL);
+							stretchRect.w = 640;
+							stretchRect.h = 480;
+							stretchRect.y = SCREEN_HEIGHT
+									- stretchRect.h;
+							stretchRect.x = (SCREEN_WIDTH
+									- stretchRect.w) / 2;
+							SDL_BlitScaled(pictures[k_down],
+							NULL, surface, &stretchRect);
 							break;
 
 						case SDLK_LEFT:
 							current = pictures[k_left];
-							SDL_BlitSurface(current, NULL,
-									surface,
-									NULL);
+							stretchRect.w = 640;
+							stretchRect.h = 480;
+							stretchRect.y = (SCREEN_HEIGHT
+									- stretchRect.h) / 2;
+							stretchRect.x = 0;
+							SDL_BlitScaled(pictures[k_left],
+							NULL, surface, &stretchRect);
 							break;
 
 						case SDLK_RIGHT:
 							current = pictures[k_right];
-							SDL_BlitSurface(current, NULL,
-									surface,
-									NULL);
+							stretchRect.w = 640;
+							stretchRect.h = 480;
+							stretchRect.y = (SCREEN_HEIGHT
+									- stretchRect.h) / 2;
+							stretchRect.x = (SCREEN_WIDTH
+									- stretchRect.w);
+							SDL_BlitScaled(
+									pictures[k_right],
+									NULL, surface,
+									&stretchRect);
 							break;
 
-						case SDLK_s:
+						case SDLK_s: {
 							current = pictures[k_strech];
-							SDL_Rect stretchRect;
-							stretchRect.x = 0;
-							stretchRect.y = 0;
-							stretchRect.w = 300;
-							stretchRect.h = 400;
+							stretchRect.w = 800;
+							stretchRect.h = 750;
 							SDL_BlitScaled(
 									pictures[k_strech],
 									NULL, surface,
 									&stretchRect);
 							break;
-
-						default:
-							current = pictures[k_default];
+						}
+						case SDLK_i:
+							current = pictures[k_image];
 							SDL_BlitSurface(current, NULL,
 									surface,
 									NULL);
 							break;
+
+						default:
+							current = pictures[k_default];
+							stretchRect.w = 640;
+							stretchRect.h = 480;
+							stretchRect.x = (SCREEN_WIDTH
+									- stretchRect.w) / 2;
+							stretchRect.y = (SCREEN_HEIGHT
+									- stretchRect.h) / 2;
+							SDL_BlitScaled(
+									pictures[k_default],
+									NULL, surface,
+									&stretchRect);
+							break;
 						}
 					}
+					SDL_UpdateWindowSurface(window);
 				}
 				// blit - apply
-				SDL_UpdateWindowSurface(window);
 			}
 		}
 	}
@@ -134,7 +176,7 @@ bool init() {
 				SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 
 		if (window == NULL) {
-			cout << "Window can't be created.SDL_Error: "
+			cout << "Window can't be created. SDL_Error: "
 					<< SDL_GetError() << endl;
 			success = false;
 		}
@@ -152,41 +194,50 @@ bool loadMedia() {
 	bool success = true;
 	pictures[k_default] = SDL_LoadBMP("hello_world.bmp");
 	if (pictures[k_default] == NULL) {
-		cout << "The picture can't be loaded. Error: "
+		cout
+				<< "The default picture can't be loaded. Error: "
 				<< SDL_GetError() << endl;
 		success = false;
 	}
 
 	pictures[k_up] = SDL_LoadBMP("up.bmp");
 	if (pictures[k_up] == NULL) {
-		cout << "The picture can't be loaded. Error: "
+		cout << "The up picture can't be loaded. Error: "
 				<< SDL_GetError() << endl;
 		success = false;
 	}
 
 	pictures[k_down] = SDL_LoadBMP("down.bmp");
 	if (pictures[k_down] == NULL) {
-		cout << "The picture can't be loaded. Error: "
+		cout << "The down picture can't be loaded. Error: "
 				<< SDL_GetError() << endl;
 		success = false;
 	}
 
 	pictures[k_left] = SDL_LoadBMP("left.bmp");
 	if (pictures[k_left] == NULL) {
-		cout << "The picture can't be loaded. Error: "
+		cout << "The left picture can't be loaded. Error: "
 				<< SDL_GetError() << endl;
 		success = false;
 	}
 
 	pictures[k_right] = SDL_LoadBMP("right.bmp");
 	if (pictures[k_right] == NULL) {
-		cout << "The picture can't be loaded. Error: "
+		cout << "The right picture can't be loaded. Error: "
 				<< SDL_GetError() << endl;
 		success = false;
 	}
-	pictures[k_strech] = loadSurface("stretch.bmp");
+	pictures[k_strech] = SDL_LoadBMP("stretch.bmp");
 	if (pictures[k_strech] == NULL) {
-		cout << "The picture can't be loaded. Error: "
+		cout
+				<< "The streched picture can't be loaded. Error: "
+				<< SDL_GetError() << endl;
+		success = false;
+	}
+	pictures[k_image] = loadSurface("loaded.png");
+	if (pictures[k_image] == NULL) {
+		cout
+				<< "The loaded picture can't be loaded. Error: "
 				<< SDL_GetError() << endl;
 		success = false;
 	}
@@ -207,7 +258,7 @@ void close() {
 	SDL_DestroyWindow(window);
 	window = NULL;
 
-	for (int i = 0; i < k_total; i++) {
+	for (int i = 0; i < k_end; i++) {
 		SDL_FreeSurface(pictures[i]);
 		pictures[i] = NULL;
 	}
@@ -216,10 +267,10 @@ void close() {
 }
 
 SDL_Surface* loadSurface(std::string path) {
-	loadedSurface = SDL_LoadBMP(path.c_str());
+	loadedSurface = IMG_Load(path.c_str());
 	if (loadedSurface == NULL) {
 		cout
-				<< "The stretched picture can't be loaded. Error: "
+				<< "The loaded picture can't be loaded. Error: "
 				<< path.c_str() << SDL_GetError() << endl;
 
 	} else {
@@ -227,7 +278,7 @@ SDL_Surface* loadSurface(std::string path) {
 				surface->format, 0);
 		if (optimizedSurface == NULL) {
 			cout
-					<< "The stretched picture can't be loaded. Error: "
+					<< "The optimized surface can't be loaded. Error: "
 					<< path.c_str() << SDL_GetError()
 					<< endl;
 		}
