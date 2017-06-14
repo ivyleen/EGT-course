@@ -15,6 +15,8 @@ bool init();
 bool loadMedia();
 void close();
 SDL_Surface* loadSurface(std::string path);
+SDL_Texture* loadTexture(std::string path,
+		SDL_Renderer *renderTarget);
 
 enum KeyPress
 {
@@ -283,5 +285,32 @@ SDL_Surface* loadSurface(std::string path)
 		}
 	}
 	return loadedSurface;
+
+}
+
+SDL_Texture* loadTexture(std::string path,
+		SDL_Renderer *renderTarget)
+{
+	loadedTexture = NULL;
+	loadedSurface = IMG_Load(path.c_str());
+	if (loadedSurface == NULL)
+	{
+		cout
+				<< "The loaded picture can't be loaded. Error: "
+				<< path.c_str() << SDL_GetError() << endl;
+
+	} else
+	{
+		loadedTexture = SDL_CreateTextureFromSurface(
+				renderTarget, loadedSurface);
+		if (loadedTexture == NULL)
+		{
+			cout
+					<< "The optimized surface can't be loaded. Error: "
+					<< path.c_str() << SDL_GetError()
+					<< endl;
+		}
+	}
+	return loadedTexture;
 
 }
