@@ -182,7 +182,7 @@ bool loadMedia()
 	{
 		cout
 				<< "The default picture can't be loaded. Error: "
-				<< SDL_GetError() << endl;
+				<< IMG_GetError() << endl;
 		success = false;
 	}
 
@@ -190,7 +190,7 @@ bool loadMedia()
 	if (pictures[k_up] == NULL)
 	{
 		cout << "The up picture can't be loaded. Error: "
-				<< SDL_GetError() << endl;
+				<< IMG_GetError() << endl;
 		success = false;
 	}
 
@@ -199,7 +199,7 @@ bool loadMedia()
 	if (pictures[k_down] == NULL)
 	{
 		cout << "The down picture can't be loaded. Error: "
-				<< SDL_GetError() << endl;
+				<< IMG_GetError() << endl;
 		success = false;
 	}
 
@@ -208,7 +208,7 @@ bool loadMedia()
 	if (pictures[k_left] == NULL)
 	{
 		cout << "The left picture can't be loaded. Error: "
-				<< SDL_GetError() << endl;
+				<< IMG_GetError() << endl;
 		success = false;
 	}
 
@@ -216,7 +216,7 @@ bool loadMedia()
 	if (pictures[k_right] == NULL)
 	{
 		cout << "The right picture can't be loaded. Error: "
-				<< SDL_GetError() << endl;
+				<< IMG_GetError() << endl;
 		success = false;
 	}
 	pictures[k_strech] = loadSurface(
@@ -225,7 +225,7 @@ bool loadMedia()
 	{
 		cout
 				<< "The streched picture can't be loaded. Error: "
-				<< SDL_GetError() << endl;
+				<< IMG_GetError() << endl;
 		success = false;
 	}
 	pictures[k_image] = loadSurface("fond.png");
@@ -233,7 +233,7 @@ bool loadMedia()
 	{
 		cout
 				<< "The loaded picture can't be loaded. Error: "
-				<< SDL_GetError() << endl;
+				<< IMG_GetError() << endl;
 		success = false;
 	}
 
