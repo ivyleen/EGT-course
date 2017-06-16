@@ -1,7 +1,7 @@
 /*
  * Global.h
  *
- *  Created on: 15.06.2017 ã.
+ *  Created on: 16.06.2017 ã.
  *      Author: IVY
  */
 
@@ -9,11 +9,17 @@
 #define GLOBAL_H_
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 #include <stdio.h>
 #include <string>
 
-SDL_Window* gWindow = NULL;
-SDL_Renderer* gRenderer = NULL;
+const int SCREEN_WIDTH = 640;
+const int SCREEN_HEIGHT = 480;
+
+static SDL_Window* gWindow = NULL;
+static SDL_Renderer* gRenderer = NULL;
+static TTF_Font *gFont = NULL;
+Texture gTextTexture;
 
 bool init()
 {
@@ -21,8 +27,7 @@ bool init()
 	bool success = true;
 
 	//Initialize SDL
-	if (SDL_Init(
-	SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER) < 0)
+	if (SDL_Init( SDL_INIT_VIDEO) < 0)
 	{
 		printf("SDL could not initialize! SDL Error: %s\n",
 				SDL_GetError());
@@ -30,7 +35,7 @@ bool init()
 	} else
 	{
 		//Set texture filtering to linear
-		if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY,
+		if (!SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY,
 				"1"))
 		{
 			printf(
@@ -38,7 +43,7 @@ bool init()
 		}
 
 		//Create window
-		gWindow = SDL_CreateWindow("SDL Testing",
+		gWindow = SDL_CreateWindow("Text Font Testing",
 		SDL_WINDOWPOS_UNDEFINED,
 		SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH,
 				SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
@@ -50,9 +55,10 @@ bool init()
 			success = false;
 		} else
 		{
-			//Create renderer for window
+			//Create vsynced renderer for window
 			gRenderer = SDL_CreateRenderer(gWindow, -1,
-					SDL_RENDERER_ACCELERATED);
+					SDL_RENDERER_ACCELERATED
+							| SDL_RENDERER_PRESENTVSYNC);
 			if (gRenderer == NULL)
 			{
 				printf(
@@ -70,22 +76,71 @@ bool init()
 				if (!(IMG_Init(imgFlags) & imgFlags))
 				{
 					printf(
-							"SDL_image could not initialize! SDL_mage Error: %s\n",
+							"SDL_image could not initialize! SDL_image Error: %s\n",
 							IMG_GetError());
 					success = false;
 				}
+
+				//Initialize SDL_ttf
+				if (TTF_Init() == -1)
+				{
+					printf(
+							"SDL_ttf could not initialize! SDL_ttf Error: %s\n",
+							TTF_GetError());
+					success = false;
+				}
 			}
+		}
+	}
+	cout << success;
+	return success;
+}
+
+bool loadMedia()
+{
+	//Loading success flag
+	bool success = true;
+
+	//Open the font
+	gFont = TTF_OpenFont("Crimson-Roman.ttf", 28);
+	if (gFont == NULL)
+	{
+		printf(
+				"Failed to load lazy font! SDL_ttf Error: %s\n",
+				TTF_GetError());
+		success = false;
+	} else
+	{
+		//Render text
+		SDL_Color textColor =
+		{ 0, 155, 0 };
+		if (! gTextTexture.loadFromRenderedText(gRenderer,
+				"This is the text example!", textColor))
+		{
+			printf("Failed to render text texture!\n");
+			success = false;
 		}
 	}
 
 	return success;
 }
 
-void closeGlobal()
+void close()
 {
+
+	gTextTexture.free();
+
+	TTF_CloseFont(gFont);
+	gFont = NULL;
+
 	SDL_DestroyRenderer(gRenderer);
 	SDL_DestroyWindow(gWindow);
-}
+	gWindow = NULL;
+	gRenderer = NULL;
 
+	TTF_Quit();
+	IMG_Quit();
+	SDL_Quit();
+}
 
 #endif /* GLOBAL_H_ */

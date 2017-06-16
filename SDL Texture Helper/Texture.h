@@ -1,47 +1,51 @@
 /*
  * Texture.h
  *
- *  Created on: 15.06.2017 ã.
+ *  Created on: 16.06.2017 ã.
  *      Author: IVY
  */
 
 #ifndef TEXTURE_H_
 #define TEXTURE_H_
+#include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-#include <stdio.h>
+#include <SDL2/SDL_ttf.h>
+#include <iostream>
 #include <string>
-
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
+#include <cmath>
 
 class Texture
 {
 public:
 	Texture();
 
-//Deallocates memory
 	~Texture();
 
-//Loads image at specified path
-	bool loadFromFile(SDL_Renderer* gRenderer,
+	bool loadFromFile(SDL_Renderer * renderer,
 			std::string path);
 
-//Deallocates texture
+	bool loadFromRenderedText(SDL_Renderer * renderer,
+			std::string textureText, SDL_Color textColor);
+
 	void free();
 
-//Renders texture at given point
-	SDL_Renderer* render(SDL_Renderer* gRenderer, int x, int y,
-			SDL_Rect* clip = NULL);
+	void setColor(Uint8 red, Uint8 green, Uint8 blue);
 
-//Gets image dimensions
+	void setBlendMode(SDL_BlendMode blending);
+
+	void setAlpha(Uint8 alpha);
+
+	void render(SDL_Renderer * renderer, int x, int y,
+			SDL_Rect* clip = NULL, double angle = 0.0,
+			SDL_Point* center = NULL,
+			SDL_RendererFlip flip = SDL_FLIP_NONE);
+
 	int getWidth();
 	int getHeight();
 
 private:
-//The actual hardware texture
 	SDL_Texture* mTexture;
 
-//Image dimensions
 	int mWidth;
 	int mHeight;
 };
