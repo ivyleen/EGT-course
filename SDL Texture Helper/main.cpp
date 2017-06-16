@@ -1,42 +1,19 @@
 //============================================================================
-// Name        : TextureHelper.cpp
+// Name        : 06.cpp
 // Author      : Ivy
 // Version     :
 // Copyright   : Your copyright notice
 // Description : Hello World in C++, Ansi-style
 //============================================================================
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
+
 #include <iostream>
-#include "Texture.h"
-#include "Global.h"
 using namespace std;
 
-
-Texture gSpriteSheetTexture;
-
-bool loadMedia()
-{
-	//Loading success flag
-	bool success = true;
-
-	//Load sprite sheet texture
-	if (!true)
-	{
-		printf("Failed to load texture!\n");
-		success = false;
-	} else
-	{
-
-	}
-
-	return success;
-}
+#include "Texture.h"
+#include "Global.h"
 
 int main(int argc, char* args[])
 {
-
-	Texture gSpriteSheetTexture;
 	if (!init())
 	{
 		printf("Failed to initialize!\n");
@@ -54,6 +31,7 @@ int main(int argc, char* args[])
 			//Event handler
 			SDL_Event e;
 
+			//While application is running
 			while (!quit)
 			{
 				//Handle events on queue
@@ -65,10 +43,16 @@ int main(int argc, char* args[])
 						quit = true;
 					}
 				}
-				SDL_SetRenderDrawColor(gRenderer, 20,
+
+				//Clear screen
+				SDL_SetRenderDrawColor(gRenderer, 0xFF,
 						0xFF, 0xFF, 0xFF);
 				SDL_RenderClear(gRenderer);
 
+				//Render current frame
+				gTextTexture.render(gRenderer,
+						SCREEN_WIDTH/15,
+						SCREEN_HEIGHT/30);
 
 				//Update screen
 				SDL_RenderPresent(gRenderer);
@@ -77,7 +61,7 @@ int main(int argc, char* args[])
 	}
 
 	//Free resources and close SDL
-	closeGlobal();
+	close();
 
 	return 0;
 }

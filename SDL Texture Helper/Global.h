@@ -16,13 +16,14 @@
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 
-static SDL_Window* gWindow = NULL;
-static SDL_Renderer* gRenderer = NULL;
-static TTF_Font *gFont = NULL;
+SDL_Window* gWindow = NULL;
+SDL_Renderer* gRenderer = NULL;
+TTF_Font *gFont = NULL;
 Texture gTextTexture;
 
 bool init()
 {
+
 	//Initialization flag
 	bool success = true;
 
@@ -92,7 +93,6 @@ bool init()
 			}
 		}
 	}
-	cout << success;
 	return success;
 }
 
@@ -114,14 +114,17 @@ bool loadMedia()
 		//Render text
 		SDL_Color textColor =
 		{ 0, 155, 0 };
-		if (! gTextTexture.loadFromRenderedText(gRenderer,
-				"This is the text example!", textColor))
+		if (!gTextTexture.loadFromFile(gRenderer,
+				"story.jpg")
+
+				/*loadFromRenderedText(gRenderer,
+				 "This is the text example!", textColor)*/)
 		{
 			printf("Failed to render text texture!\n");
 			success = false;
 		}
 	}
-
+	std::cout << boolalpha << success << std::endl;
 	return success;
 }
 

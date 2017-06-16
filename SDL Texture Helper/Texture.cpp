@@ -33,7 +33,7 @@ bool Texture::loadFromFile(SDL_Renderer * renderer,
 	} else
 	{
 		SDL_SetColorKey(loadedSurface, SDL_TRUE,
-				SDL_MapRGB(loadedSurface->format, 0, 10,
+				SDL_MapRGB(loadedSurface->format, 0, 100,
 						255));
 
 		newTexture = SDL_CreateTextureFromSurface(renderer,
@@ -57,10 +57,13 @@ bool Texture::loadFromFile(SDL_Renderer * renderer,
 bool Texture::loadFromRenderedText(SDL_Renderer * renderer,
 		std::string textureText, SDL_Color textColor)
 {
-	TTF_Font *font = NULL;
 	free();
+	TTF_Font *font = NULL;
 	SDL_Surface* textSurface = TTF_RenderText_Solid(font,
 			textureText.c_str(), textColor);
+
+	std::cout << (textSurface == NULL) << std::endl;
+
 	if (textSurface == NULL)
 	{
 		std::cout
@@ -107,7 +110,7 @@ void Texture::render(SDL_Renderer * renderer, int x, int y,
 		SDL_RendererFlip flip)
 {
 	SDL_Rect renderRect =
-	{ x, y, mWidth, mHeight };
+	{ x, y, 540, 500 };
 
 	if (clip != NULL)
 	{
