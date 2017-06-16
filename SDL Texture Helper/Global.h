@@ -115,16 +115,18 @@ bool loadMedia()
 		SDL_Color textColor =
 		{ 0, 155, 0 };
 		if (!gTextTexture.loadFromFile(gRenderer,
-				"story.jpg")
-
-				/*loadFromRenderedText(gRenderer,
-				 "This is the text example!", textColor)*/)
+				"story.jpg"))
 		{
-			printf("Failed to render text texture!\n");
+			printf("Failed to picture texture!\n");
 			success = false;
 		}
+		if (!gTextTexture.loadFromRenderedText(gRenderer, gFont,
+				"This is the text example!", textColor))
+		{
+			printf("Failed to render text texture!\n");
+						success = false;
+		}
 	}
-	std::cout << boolalpha << success << std::endl;
 	return success;
 }
 

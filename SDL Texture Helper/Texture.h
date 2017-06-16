@@ -24,7 +24,7 @@ public:
 	bool loadFromFile(SDL_Renderer * renderer,
 			std::string path);
 
-	bool loadFromRenderedText(SDL_Renderer * renderer,
+	bool loadFromRenderedText(SDL_Renderer * renderer, TTF_Font *gFont,
 			std::string textureText, SDL_Color textColor);
 
 	void free();

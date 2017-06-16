@@ -55,10 +55,10 @@ bool Texture::loadFromFile(SDL_Renderer * renderer,
 }
 
 bool Texture::loadFromRenderedText(SDL_Renderer * renderer,
-		std::string textureText, SDL_Color textColor)
+		TTF_Font *font, std::string textureText,
+		SDL_Color textColor)
 {
-	free();
-	TTF_Font *font = NULL;
+	/*	free();*/
 	SDL_Surface* textSurface = TTF_RenderText_Solid(font,
 			textureText.c_str(), textColor);
 
