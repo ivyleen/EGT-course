@@ -25,42 +25,70 @@ int main(int argc, char* args[])
 			printf("Failed to load media!\n");
 		} else
 		{
-			//Main loop flag
-			bool quit = false;
 
-			//Event handler
+			bool quit = false;
+			double degrees = 0;
+			SDL_RendererFlip flipType = SDL_FLIP_NONE;
 			SDL_Event e;
 
-			//While application is running
 			while (!quit)
 			{
-				//Handle events on queue
 				while (SDL_PollEvent(&e) != 0)
 				{
-					//User requests quit
 					if (e.type == SDL_QUIT)
 					{
 						quit = true;
+					} else if (e.type == SDL_KEYDOWN)
+					{
+						switch (e.key.keysym.sym)
+						{
+						case SDLK_a:
+							degrees -= 60;
+							break;
+
+						case SDLK_d:
+							degrees += 60;
+							break;
+
+						case SDLK_q:
+							flipType = SDL_FLIP_HORIZONTAL;
+							break;
+
+						case SDLK_w:
+							flipType = SDL_FLIP_NONE;
+							break;
+
+						case SDLK_e:
+							flipType = SDL_FLIP_VERTICAL;
+							break;
+						}
+
 					}
+
+					SDL_SetRenderDrawColor(gRenderer, 0xFF,
+							0xFF, 0xFF, 0xFF);
+					SDL_RenderClear(gRenderer);
+
+					SDL_Rect topLeftViewport;
+					topLeftViewport.x = 0;
+					topLeftViewport.y = 0;
+					topLeftViewport.w =gTextTexture.getWidth();
+					topLeftViewport.h = gTextTexture.getHeight();
+
+					background.renderB(gRenderer, NULL,
+							degrees, NULL, flipType);
+
+					gTextTexture.renderB(gRenderer,
+							&topLeftViewport,
+							degrees,NULL, flipType);
+
+					//Update screen
+					SDL_RenderPresent(gRenderer);
 				}
-
-				//Clear screen
-				SDL_SetRenderDrawColor(gRenderer, 0xFF,
-						0xFF, 0xFF, 0xFF);
-				SDL_RenderClear(gRenderer);
-
-				//Render current frame
-				gTextTexture.render(gRenderer,
-						SCREEN_WIDTH/15,
-						SCREEN_HEIGHT/30);
-
-				//Update screen
-				SDL_RenderPresent(gRenderer);
 			}
 		}
 	}
 
-	//Free resources and close SDL
 	close();
 
 	return 0;

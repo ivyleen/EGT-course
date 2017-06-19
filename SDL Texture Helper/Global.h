@@ -20,6 +20,7 @@ SDL_Window* gWindow = NULL;
 SDL_Renderer* gRenderer = NULL;
 TTF_Font *gFont = NULL;
 Texture gTextTexture;
+Texture background;
 
 bool init()
 {
@@ -114,17 +115,18 @@ bool loadMedia()
 		//Render text
 		SDL_Color textColor =
 		{ 0, 155, 0 };
-		if (!gTextTexture.loadFromFile(gRenderer,
+		if (!gTextTexture.loadFromRenderedText(gRenderer,
+				gFont, "This is the text example!",
+				textColor))
+		{
+			printf("Failed to render text texture!\n");
+			success = false;
+		}
+		if (!background.loadFromFile(gRenderer,
 				"story.jpg"))
 		{
 			printf("Failed to picture texture!\n");
 			success = false;
-		}
-		if (!gTextTexture.loadFromRenderedText(gRenderer, gFont,
-				"This is the text example!", textColor))
-		{
-			printf("Failed to render text texture!\n");
-						success = false;
 		}
 	}
 	return success;

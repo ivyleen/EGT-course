@@ -9,9 +9,10 @@
 
 Texture::Texture()
 {
-	mTexture = NULL;
-	mWidth = 0;
-	mHeight = 0;
+	background = NULL;
+	txtTexture = NULL;
+	mWidth = 300;
+	mHeight = 50;
 }
 
 Texture::~Texture()
@@ -19,10 +20,11 @@ Texture::~Texture()
 	free();
 }
 
-bool Texture::loadFromFile(SDL_Renderer * renderer,
+SDL_Texture* Texture::loadFromFile(SDL_Renderer * renderer,
 		std::string path)
 {
 	free();
+
 	SDL_Texture *newTexture = NULL;
 	SDL_Surface *loadedSurface = IMG_Load(path.c_str());
 	if (loadedSurface == NULL)
@@ -32,10 +34,6 @@ bool Texture::loadFromFile(SDL_Renderer * renderer,
 				<< IMG_GetError() << std::endl;
 	} else
 	{
-		SDL_SetColorKey(loadedSurface, SDL_TRUE,
-				SDL_MapRGB(loadedSurface->format, 0, 100,
-						255));
-
 		newTexture = SDL_CreateTextureFromSurface(renderer,
 				loadedSurface);
 		if (newTexture == NULL)
@@ -50,19 +48,17 @@ bool Texture::loadFromFile(SDL_Renderer * renderer,
 
 		SDL_FreeSurface(loadedSurface);
 	}
-	mTexture = newTexture;
-	return mTexture != NULL;
+	background = newTexture;
+	return newTexture;
 }
 
-bool Texture::loadFromRenderedText(SDL_Renderer * renderer,
+SDL_Texture* Texture::loadFromRenderedText(SDL_Renderer * renderer,
 		TTF_Font *font, std::string textureText,
 		SDL_Color textColor)
 {
-	/*	free();*/
+	free();
 	SDL_Surface* textSurface = TTF_RenderText_Solid(font,
 			textureText.c_str(), textColor);
-
-	std::cout << (textSurface == NULL) << std::endl;
 
 	if (textSurface == NULL)
 	{
@@ -71,62 +67,67 @@ bool Texture::loadFromRenderedText(SDL_Renderer * renderer,
 				<< TTF_GetError() << std::endl;
 	} else
 	{
-		mTexture = SDL_CreateTextureFromSurface(renderer,
+		txtTexture = SDL_CreateTextureFromSurface(renderer,
 				textSurface);
-		if (mTexture == NULL)
+		if (txtTexture == NULL)
 		{
 			std::cout
 					<< "Problem in load from rendered text "
 					<<
 					TTF_GetError() << std::endl;
-		} else
-		{
-			mHeight = textSurface->h;
-			mWidth = textSurface->w;
+		} else {
+
 		}
 		SDL_FreeSurface(textSurface);
 	}
 
-	return mTexture != NULL;
+	return txtTexture;
 }
 
 void Texture::setColor(Uint8 red, Uint8 green, Uint8 blue)
 {
-	SDL_SetTextureColorMod(mTexture, red, green, blue);
+	SDL_SetTextureColorMod(txtTexture, red, green, blue);
 }
 
 void Texture::setBlendMode(SDL_BlendMode blending)
 {
-	SDL_SetTextureBlendMode(mTexture, blending);
+	SDL_SetTextureBlendMode(txtTexture, blending);
 }
 
 void Texture::setAlpha(Uint8 alpha)
 {
-	SDL_SetTextureAlphaMod(mTexture, alpha);
+	SDL_SetTextureAlphaMod(txtTexture, alpha);
 }
 
-void Texture::render(SDL_Renderer * renderer, int x, int y,
+void Texture::renderB(SDL_Renderer * renderer,
 		SDL_Rect* clip, double angle, SDL_Point* center,
 		SDL_RendererFlip flip)
 {
+	SDL_Rect rRect =
+	{ 50, 50, 540, 500 };
 	SDL_Rect renderRect =
-	{ x, y, 540, 500 };
+	{ 0, 0, mWidth, mHeight };
 
 	if (clip != NULL)
 	{
+		renderRect.x = clip->x;
+		renderRect.y = clip->y;
 		renderRect.w = clip->w;
 		renderRect.h = clip->h;
 	}
-	SDL_RenderCopyEx(renderer, mTexture, clip, &renderRect,
+
+	SDL_RenderCopyEx(renderer, background, clip, &rRect,
 			angle, center, flip);
+	SDL_RenderCopyEx(renderer, txtTexture, clip,
+			&renderRect, angle, center, flip);
 }
 
 void Texture::free()
 {
-	if (mTexture != NULL)
+	if (txtTexture != NULL)
 	{
-		SDL_DestroyTexture(mTexture);
-		mTexture = NULL;
+		SDL_DestroyTexture(txtTexture);
+		txtTexture = NULL;
 		mWidth = 0;
 		mHeight = 0;
 	}

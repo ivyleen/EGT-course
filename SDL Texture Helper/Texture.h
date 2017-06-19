@@ -21,11 +21,12 @@ public:
 
 	~Texture();
 
-	bool loadFromFile(SDL_Renderer * renderer,
+	SDL_Texture* loadFromFile(SDL_Renderer * renderer,
 			std::string path);
 
-	bool loadFromRenderedText(SDL_Renderer * renderer, TTF_Font *gFont,
-			std::string textureText, SDL_Color textColor);
+	SDL_Texture* loadFromRenderedText(SDL_Renderer * renderer,
+			TTF_Font *gFont, std::string textureText,
+			SDL_Color textColor);
 
 	void free();
 
@@ -35,19 +36,23 @@ public:
 
 	void setAlpha(Uint8 alpha);
 
-	void render(SDL_Renderer * renderer, int x, int y,
-			SDL_Rect* clip = NULL, double angle = 0.0,
+	void renderB(SDL_Renderer * renderer,
+			SDL_Rect* clip, double angle = 0.0,
 			SDL_Point* center = NULL,
 			SDL_RendererFlip flip = SDL_FLIP_NONE);
+
 
 	int getWidth();
 	int getHeight();
 
 private:
-	SDL_Texture* mTexture;
+	SDL_Texture* txtTexture;
+	SDL_Texture* background;
 
 	int mWidth;
 	int mHeight;
+
+
 };
 
 #endif /* TEXTURE_H_ */
