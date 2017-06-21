@@ -17,6 +17,7 @@ using namespace std;
 //Screen dimension constants
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
+const int offset = 74;
 
 SDL_Window* gWindow = NULL;
 SDL_Renderer* gRenderer = NULL;
