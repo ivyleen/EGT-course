@@ -60,7 +60,7 @@ int main(int argc, char* args[])
 				for (int i = 0; i < 8; i++)
 				{
 					figures.render(gRenderer,
-							50 + i * offset, 70,
+							40+i*offset, 335,
 							&blackChessFigures[5]);
 				}
 
