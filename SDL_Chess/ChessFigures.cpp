@@ -101,5 +101,4 @@ void ChessFigures::free()
 		m_iHeight = 0;
 		m_iWidth = 0;
 	}
-
 }

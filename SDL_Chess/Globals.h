@@ -45,7 +45,7 @@ bool init()
 		success = false;
 	} else
 	{
-		gWindow = SDL_CreateWindow("Chess Testing by Ivy",
+		gWindow = SDL_CreateWindow("Chess by Ivy",
 		SDL_WINDOWPOS_UNDEFINED,
 		SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH,
 				SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
@@ -111,8 +111,8 @@ void drawChessFigures()
 	}
 
 	// drawing queen and king
-	int help = 3;
-	for (int i = 1; i < 3; i++)
+	int help = 2;
+	for (int i = 2; i > -1; i--)
 	{
 		figures.render(gRenderer, (help * rectOfBoardW),
 				SCREEN_HEIGHT - rectOfBoardH,
