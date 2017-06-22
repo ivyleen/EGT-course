@@ -33,36 +33,17 @@ int main(int argc, char* args[])
 						quit = true;
 					}
 				}
-				SDL_SetRenderDrawColor(gRenderer, 0xFF,
-						0xFF, 0xFF, 0xFF);
+
 				SDL_RenderClear(gRenderer);
 
-				SDL_RenderCopy(gRenderer, background, 0, 0);
+				// if you want to be with a background picture
+				//	SDL_SetRenderDrawColor(gRenderer, 0xFF,
+				//  0xFF, 0xFF, 0xFF);
+				// SDL_RenderCopy(gRenderer, background, 0, 0);
 
-				figures.render(gRenderer, 35, 15,
-						&whiteChessFigures[0]);
-				/*figures.render(gRenderer,
-				 SCREEN_WIDTH - whiteChessFigures[1].w, 0,
-				 &whiteChessFigures[1]);
-
-				 figures.render(gRenderer,0,
-				 SCREEN_HEIGHT - whiteChessFigures[2].h,
-				 &whiteChessFigures[2]);
-				 */
-
-				for (int i = 0; i < 8; i++)
-				{
-					figures.render(gRenderer,
-							50 + i * offset, 70,
-							&whiteChessFigures[5]);
-				}
-
-				for (int i = 0; i < 8; i++)
-				{
-					figures.render(gRenderer,
-							40+i*offset, 335,
-							&blackChessFigures[5]);
-				}
+				// if you want to be drawn
+				drawChessBord();
+				drawChessFigures();
 
 				SDL_RenderPresent(gRenderer);
 			}
