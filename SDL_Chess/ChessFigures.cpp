@@ -56,8 +56,8 @@ bool ChessFigures::loadFromFile(SDL_Renderer* renderer,
 	} else
 	{
 		SDL_SetColorKey(loadedSurface, SDL_TRUE,
-				SDL_MapRGB(loadedSurface->format, 0xFF,
-						0xFF, 0xFF));
+				SDL_MapRGB(loadedSurface->format, 2,
+						255, 255));
 		figure = SDL_CreateTextureFromSurface(renderer,
 				loadedSurface);
 		if (figure == NULL)
@@ -79,11 +79,8 @@ void ChessFigures::render(SDL_Renderer* renderer, int x,
 {
 	SDL_Rect newPos = { x, y, m_iWidth, m_iHeight };
 
-	if (oldPos->y < 70)
+	if (oldPos != NULL)
 	{
-		newPos.w = oldPos->w/4;
-		newPos.h = oldPos->h/4;
-	} else {
 		newPos.w = oldPos->w/4;
 		newPos.h = oldPos->h/4;
 	}

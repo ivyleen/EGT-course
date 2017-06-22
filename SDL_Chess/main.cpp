@@ -21,7 +21,7 @@ int main(int argc, char* args[])
 		} else
 		{
 			bool quit = false;
-
+			bool drawn = false;
 			SDL_Event e;
 
 			while (!quit)
@@ -34,16 +34,17 @@ int main(int argc, char* args[])
 					}
 				}
 
-				SDL_RenderClear(gRenderer);
-
+				if (!drawn)
+				{
+					SDL_RenderClear(gRenderer);
+					drawChessBord();
+					drawChessFigures();
+					drawn = true;
+				}
 				// if you want to be with a background picture
 				//	SDL_SetRenderDrawColor(gRenderer, 0xFF,
 				//  0xFF, 0xFF, 0xFF);
 				// SDL_RenderCopy(gRenderer, background, 0, 0);
-
-				// if you want to be drawn
-				drawChessBord();
-				drawChessFigures();
 
 				SDL_RenderPresent(gRenderer);
 			}

@@ -88,21 +88,40 @@ bool init()
 
 void drawChessFigures()
 {
+	// drawing bishop, knight and rook
+	int j = 0;
+	for (int i = 4; i > 1; i--)
+	{
+		// left
+		figures.render(gRenderer, (j * rectOfBoardW),
+				SCREEN_HEIGHT - rectOfBoardH,
+				&whiteChessFigures[i]);
+		figures.render(gRenderer, (j * rectOfBoardW), 0,
+				&blackChessFigures[i]);
 
-	/*	figures.render(gRenderer, 35, 15,
-	 &whiteChessFigures[0]);
+		//right
+		figures.render(gRenderer,
+				((8 - j - 1) * rectOfBoardW),
+				SCREEN_HEIGHT - rectOfBoardH,
+				&whiteChessFigures[i]);
+		figures.render(gRenderer,
+				((8 - j - 1) * rectOfBoardW), 0,
+				&blackChessFigures[i]);
+		j++;
+	}
 
-	 figures.render(gRenderer,
-	 SCREEN_WIDTH - whiteChessFigures[1].w, 0,
-	 &whiteChessFigures[1]);
+	// drawing queen and king
+	int help = 3;
+	for (int i = 1; i < 3; i++)
+	{
+		figures.render(gRenderer, (help * rectOfBoardW),
+				SCREEN_HEIGHT - rectOfBoardH,
+				&whiteChessFigures[i]);
+		figures.render(gRenderer, (help * rectOfBoardW), 0,
+				&blackChessFigures[i]);
 
-	 figures.render(gRenderer, 110, 16,
-	 &whiteChessFigures[2]);
-
-	 figures.render(gRenderer, 33, 122,
-	 &whiteChessFigures[3]);
-
-	 figures.render(gRenderer, 0, 0, &blackChessFigures[4]);*/
+		help++;
+	}
 
 	// drawing pawns
 	for (int i = 0; i < 8; i++)
@@ -156,7 +175,6 @@ void setWhiteChessFigures()
 
 void setBlackChessFigures()
 {
-
 	int stepP = 333;
 	for (int i = 0; i < 6; i++)
 	{
@@ -195,7 +213,6 @@ bool loadMedia()
 	{
 		setWhiteChessFigures();
 		setBlackChessFigures();
-
 	}
 	SDL_FreeSurface(loadedSurface);
 	return success;
