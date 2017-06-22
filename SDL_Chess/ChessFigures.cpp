@@ -81,11 +81,11 @@ void ChessFigures::render(SDL_Renderer* renderer, int x,
 
 	if (oldPos->y < 70)
 	{
-		newPos.w = oldPos->w/5;
-		newPos.h = oldPos->h/5;
+		newPos.w = oldPos->w/4;
+		newPos.h = oldPos->h/4;
 	} else {
-		newPos.w = oldPos->w/24;
-		newPos.h = oldPos->h/10;
+		newPos.w = oldPos->w/4;
+		newPos.h = oldPos->h/4;
 	}
 
 	SDL_RenderCopy(renderer, figure, oldPos, &newPos);

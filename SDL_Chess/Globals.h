@@ -89,35 +89,29 @@ bool init()
 void drawChessFigures()
 {
 
-
-	 figures.render(gRenderer, 35, 15,
+	/*	figures.render(gRenderer, 35, 15,
 	 &whiteChessFigures[0]);
 
 	 figures.render(gRenderer,
-	 SCREEN_WIDTH
-	 - whiteChessFigures[1].w, 0,
+	 SCREEN_WIDTH - whiteChessFigures[1].w, 0,
 	 &whiteChessFigures[1]);
 
-	 figures.render(gRenderer, 110,
-	 16,
+	 figures.render(gRenderer, 110, 16,
 	 &whiteChessFigures[2]);
 
-
-	 figures.render(gRenderer, 33,
-	 122,
+	 figures.render(gRenderer, 33, 122,
 	 &whiteChessFigures[3]);
 
+	 figures.render(gRenderer, 0, 0, &blackChessFigures[4]);*/
 
+	// drawing pawns
 	for (int i = 0; i < 8; i++)
 	{
-		figures.render(gRenderer, i + i * offset, 70,
-				&whiteChessFigures[5]);
-	}
+		figures.render(gRenderer, (i + (i * offset)),
+				(6 * offset), &whiteChessFigures[5]);
 
-	for (int i = 0; i < 8; i++)
-	{
-		figures.render(gRenderer, i + i * offset, 335,
-				&blackChessFigures[5]);
+		figures.render(gRenderer, (i + (i * offset)),
+				offset, &blackChessFigures[5]);
 	}
 }
 
@@ -132,13 +126,13 @@ void drawChessBord()
 		{
 			if (chessBoard[i][j] == 0)
 			{
-				SDL_SetRenderDrawColor(gRenderer, 230, 180,
-						100, 0);
+				SDL_SetRenderDrawColor(gRenderer, 255, 255,
+						255, 0);
 			}
 			if (chessBoard[i][j] == 1)
 			{
-				SDL_SetRenderDrawColor(gRenderer, 40, 20, 150,
-						0);
+				SDL_SetRenderDrawColor(gRenderer, 230, 180,
+						100, 0);
 			}
 			q.x = 80 * j;
 			q.y = 80 * i;
@@ -149,82 +143,28 @@ void drawChessBord()
 
 void setWhiteChessFigures()
 {
-	// king
-	whiteChessFigures[0].x = 30;
-	whiteChessFigures[0].y = 30;
-	whiteChessFigures[0].w = 300;
-	whiteChessFigures[0].h = 300;
-
-	//queen
-	whiteChessFigures[1].x = 300;
-	whiteChessFigures[1].y = 30;
-	whiteChessFigures[1].w = 400;
-	whiteChessFigures[1].h = 300;
-
-	//bishop
-	whiteChessFigures[2].x = 700;
-	whiteChessFigures[2].y = 30;
-	whiteChessFigures[2].w = 300;
-	whiteChessFigures[2].h = 300;
-
-	//knight
-	whiteChessFigures[3].x = 1030;
-	whiteChessFigures[3].y = 30;
-	whiteChessFigures[3].w = 300;
-	whiteChessFigures[3].h = 300;
-
-	//rook - top
-	whiteChessFigures[4].x = 1390;
-	whiteChessFigures[4].y = 30;
-	whiteChessFigures[4].w = 300;
-	whiteChessFigures[4].h = 300;
-
-	//pawn
-	whiteChessFigures[5].x = 1730;
-	whiteChessFigures[5].y = 30;
-	whiteChessFigures[5].w = 300;
-	whiteChessFigures[5].h = 300;
+	int stepP = 333;
+	for (int i = 0; i < 6; i++)
+	{
+		whiteChessFigures[i].x = i * stepP;
+		whiteChessFigures[i].y = 0;
+		whiteChessFigures[i].w = 350;
+		whiteChessFigures[i].h = 350;
+	}
 
 }
 
 void setBlackChessFigures()
 {
-	// king
-	blackChessFigures[0].x = 30;
-	blackChessFigures[0].y = 350;
-	blackChessFigures[0].h = 300;
-	blackChessFigures[0].w = 670;
 
-	//queen
-	blackChessFigures[1].x = 350;
-	blackChessFigures[1].y = 350;
-	blackChessFigures[1].w = 650;
-	blackChessFigures[1].h = 670;
-
-	//bishop
-	blackChessFigures[2].x = 700;
-	blackChessFigures[2].y = 350;
-	blackChessFigures[2].w = 970;
-	blackChessFigures[2].h = 670;
-
-	//knight
-	blackChessFigures[3].x = 1130;
-	blackChessFigures[3].y = 350;
-	blackChessFigures[3].w = 1290;
-	blackChessFigures[3].h = 670;
-
-	//rook
-	blackChessFigures[4].x = 1390;
-	blackChessFigures[4].y = 350;
-	blackChessFigures[4].w = 1610;
-	blackChessFigures[4].h = 670;
-
-	//pawn
-	blackChessFigures[5].x = 1730;
-	blackChessFigures[5].y = 350;
-	blackChessFigures[5].w = 1930;
-	blackChessFigures[5].h = 670;
-
+	int stepP = 333;
+	for (int i = 0; i < 6; i++)
+	{
+		blackChessFigures[i].x = i * stepP;
+		blackChessFigures[i].y = 350;
+		blackChessFigures[i].w = 350;
+		blackChessFigures[i].h = 350;
+	}
 }
 
 bool loadMedia()
