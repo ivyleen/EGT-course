@@ -13,6 +13,5 @@ int main(int argc, char* args[])
 	g.start();
 	g.close();
 
-	//close();
 	return 0;
 }

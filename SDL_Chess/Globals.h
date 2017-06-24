@@ -20,6 +20,4 @@ const int offset = 80;
 const int rectOfBoardH = 80;
 const int rectOfBoardW = 80;
 
-
-
 #endif /* GLOBALS_H_ */

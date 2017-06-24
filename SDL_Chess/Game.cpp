@@ -120,7 +120,7 @@ bool Game::loadMedia()
 	return success;
 }
 
-void close()
+void Game::close()
 {
 
 //Destroy window
