@@ -11,6 +11,7 @@ int main(int argc, char* args[])
 {
 	Game g;
 	g.start();
+	g.close();
 
 	//close();
 	return 0;
