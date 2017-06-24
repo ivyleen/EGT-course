@@ -35,7 +35,7 @@ public:
 	// methods
 	bool loadFromFile(SDL_Renderer* renderer, std::string path);
 	void render(SDL_Renderer* renderer, int x, int y, SDL_Rect* oldPos);
-	void isClicked();
+	bool isClicked();
 	void free();
 
 };
