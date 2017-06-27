@@ -8,15 +8,30 @@
 
 #include <iostream>
 #include <string>
-#include "Task1.h"
+#include "LibFunctions.h"
 using namespace std;
 
-int main() {
+int main()
+{
+	const string dayName[] = { "Sunday", "Monday",
+			"Tuesday", "Wednesday", "Thursday", "Friday",
+			"Saturday" };
 
-	Task1 t;
-	string currency = t.format("usd",32);
-	t.changeCurrency('$', currency);
+	int chessBoard[8][8] = {
+				{ 0, 1, 0, 1, 0, 1, 0, 1 },
+				{ 1, 0, 1, 0, 1, 0, 1, 0 },
+				{ 0, 1, 0, 1, 0, 1, 0, 1 },
+				{ 1, 0, 1, 0, 1, 0, 1, 0 },
+				{ 0, 1, 0, 1, 0, 1, 0, 1 },
+				{ 1, 0, 1, 0, 1, 0, 1, 0 },
+				{ 0, 1, 0, 1, 0, 1, 0, 1 },
+				{ 1, 0, 1, 0, 1, 0, 1, 0 } };
 
+	printArray(dayName, 7, 0);
+
+	cout << endl;
+
+	printArray(chessBoard, 8, 8);
 
 	return 0;
 }
