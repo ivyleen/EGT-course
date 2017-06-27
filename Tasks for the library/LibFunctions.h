@@ -30,4 +30,21 @@ void printArray(T * array, int numberOfRow, int numberOfCol)
 	}
 }
 
+
+// find quotient and reminder from division
+struct QAndR{
+	int quotient;
+	int remainder;
+};
+
+QAndR FindQuotinentAndReminder(int dividend, int divisor)
+{
+	QAndR result;
+
+	result.quotient = dividend / divisor;
+	result.remainder = dividend % divisor;
+
+	return result;
+}
+
 #endif /* LIBFUNCTIONS_H_ */

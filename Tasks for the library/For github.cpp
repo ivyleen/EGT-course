@@ -33,5 +33,17 @@ int main()
 
 	printArray(chessBoard, 8, 8);
 
+	cout << endl;
+
+	int divident = 55;
+	int divisor = 9;
+
+	QAndR result = FindQuotinentAndReminder(divident, divisor);
+
+	cout <<"Devision between: "<< divident <<" and "<< divisor <<":"<< endl
+			<< "Quotient: "	<< result.quotient << ", "
+			<< "remainder: " << result.remainder << "."<< endl;
+
+
 	return 0;
 }
