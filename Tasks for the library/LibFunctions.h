@@ -47,4 +47,14 @@ QAndR FindQuotinentAndReminder(int dividend, int divisor)
 	return result;
 }
 
+// pick random number
+template<class T>
+T PickRandomNumber(T lowest, T biggest)
+{
+	srand ((unsigned) time(0));
+	T resultNumber = (rand() % biggest) + lowest;
+
+	return resultNumber;
+}
+
 #endif /* LIBFUNCTIONS_H_ */

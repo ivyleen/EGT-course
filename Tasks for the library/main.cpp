@@ -17,6 +17,10 @@ int main()
 			"Tuesday", "Wednesday", "Thursday", "Friday",
 			"Saturday" };
 
+	printArray(dayName, 7, 0);
+
+	cout << endl;
+
 	int chessBoard[8][8] = {
 				{ 0, 1, 0, 1, 0, 1, 0, 1 },
 				{ 1, 0, 1, 0, 1, 0, 1, 0 },
@@ -26,10 +30,6 @@ int main()
 				{ 1, 0, 1, 0, 1, 0, 1, 0 },
 				{ 0, 1, 0, 1, 0, 1, 0, 1 },
 				{ 1, 0, 1, 0, 1, 0, 1, 0 } };
-
-	printArray(dayName, 7, 0);
-
-	cout << endl;
 
 	printArray(chessBoard, 8, 8);
 
@@ -44,6 +44,10 @@ int main()
 			<< "Quotient: "	<< result.quotient << ", "
 			<< "remainder: " << result.remainder << "."<< endl;
 
+	cout << endl;
+
+	int pickedNumber = PickRandomNumber(-1000,1000);
+	cout << "Picked number: " << pickedNumber << endl;
 
 	return 0;
 }
